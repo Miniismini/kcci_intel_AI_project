@@ -1,0 +1,1 @@
+# kcci_intel_AI_project
