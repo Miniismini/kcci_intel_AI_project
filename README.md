@@ -43,3 +43,6 @@ Basket -> Payment  : provide price info
 @enduml
 
 ```
+
+![image](https://github.com/Miniismini/kcci_intel_AI_project/assets/131587074/9704d0b3-a3aa-459d-8566-2b95a7402dc5)
+
