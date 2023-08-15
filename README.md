@@ -1,5 +1,19 @@
 # kcci_intel_AI_project
 
+### Team_3: Paybag
+
+### Members
+
+| Name   | Role                           |
+| ------ | ------------------------------ |
+| 박지훈 | AI Model Training |
+| 유승범 | Firmware & H/W Control |
+| 이세현 | GUI & Server |
+| 이종윤 | Firmware & H/W Control |
+| 천동민 | Firmware & H/W Control |
+
+
+
 ## 1. 문제점 정의
 ```
 지금 시행되고 있는 셀프 계산대는 장바구니에 물품을 넣은 뒤에
@@ -59,4 +73,8 @@ Basket -> Payment  : provide price info
 ```
 </div>
 </details>
+
+## 4. Work breakdown sheet
+
+![KakaoTalk_20230815_221947624](https://github.com/Miniismini/kcci_intel_AI_project/assets/131587074/00cc640f-afea-4bfc-92d4-cf180c4dbb56)
 
