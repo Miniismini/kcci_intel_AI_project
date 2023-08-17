@@ -1,28 +1,41 @@
+
 import collections
+import sys
 import tarfile
 import time
 from pathlib import Path
-
 import cv2
 import numpy as np
-from IPython import display
+# from IPython import display
 from openvino import runtime as ov
 from openvino.tools.mo.front import tf as ov_tf_front
 from openvino.tools import mo
+import time
 
-import notebook_utils as utils
+sys.path.append("../utils")
+#import notebook_utils as utils
 
+## model
 
-import ipywidgets as widgets
+# A directory where the model downloaded.
+base_model_dir = Path("detection_model")
 
+# The name of the model from Open Model Zoo
+model_name = "ssdlite_mobilenet_v2"
 
+precision = "FP16"
+converted_model_path = Path("detection_model") / f"{model_name}_{precision.lower()}.xml"
 
-core = ov.Core()
-# Read the network and corresponding weights from a file.
-model = core.read_model(model="ssdlite_mobilenet_v2_fp16.xml")
+## load the model
+
+# Initialize OpenVINO Runtime.
+ie_core = ov.Core()
+
+model = ie_core.read_model(model="ssdlite_mobilenet_v2_fp16.xml")
+                           #converted_model_path)
 # Compile the model for CPU (you can choose manually CPU, GPU etc.)
 # or let the engine choose the best available device (AUTO).
-compiled_model = core.compile_model(model=model, device_name="CPU")
+compiled_model = ie_core.compile_model(model=model, device_name="CPU")
 
 # Get the input and output nodes.
 input_layer = compiled_model.input(0)
@@ -31,8 +44,12 @@ output_layer = compiled_model.output(0)
 # Get the input size.
 height, width = list(input_layer.shape)[1:3]
 
+input_layer.any_name, output_layer.any_name
 
 
+## processing results
+
+# https://tech.amikelive.com/node-718/what-object-categories-labels-are-in-coco-dataset/
 classes = [
     "background", "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train",
     "truck", "boat", "traffic light", "fire hydrant", "street sign", "stop sign",
@@ -45,7 +62,7 @@ classes = [
     "couch", "potted plant", "bed", "mirror", "dining table", "window", "desk", "toilet",
     "door", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven",
     "toaster", "sink", "refrigerator", "blender", "book", "clock", "vase", "scissors",
-    "teddy bear", "hair drier", "toothbrush", "hair brush"
+    "teddy bear", "hair drier", "toothbrush"
 ]
 
 # Colors for the classes above (Rainbow Color Map).
@@ -85,8 +102,17 @@ def process_results(frame, results, thresh=0.6):
     # Filter detected objects.
     return [(labels[idx], scores[idx], boxes[idx]) for idx in indices.flatten()]
 
+global a
+global b
+a=0
+b=0
 
 def draw_boxes(frame, boxes):
+    
+
+    state =True
+    temp=0
+    temp_1=0
     for label, score, box in boxes:
         # Choose color for the label.
         color = tuple(map(int, colors[label]))
@@ -94,7 +120,7 @@ def draw_boxes(frame, boxes):
         x2 = box[0] + box[2]
         y2 = box[1] + box[3]
         cv2.rectangle(img=frame, pt1=box[:2], pt2=(x2, y2), color=color, thickness=3)
-
+        
         # Draw a label name inside the box.
         cv2.putText(
             img=frame,
@@ -106,11 +132,47 @@ def draw_boxes(frame, boxes):
             thickness=1,
             lineType=cv2.LINE_AA,
         )
+        
+        
+        if classes[label] =="cell phone": 
+            state ==True
+            while state ==True:
+                
+                center_x = (box[0]+x2)/2
+                center_y= (box[1]+y2)/2
+                
+                
+                if center_x>0 and center_x<640 and center_y >0 and center_y<200:                
+                    global a
+                    a=time.time()
+                    
+            
+                if center_x>0 and center_x<640 and center_y >280 and center_y<480:                
+                    global b
+                    b=time.time()
+                    
+                
+                
 
+                if a != 0 and b !=0 :                   
+                    
+                    if a-b<0:
+                        print("cell phone in")
+                        a=0
+                        b=0
+                    if a-b>0:
+                        print("cell phone out")
+                        a=0
+                        b=0
+                state =False
+        
     return frame
 
+## main processing function
 
+# Main processing function to run object detection.
 def run_object_detection(source=0, flip=False, use_popup=False, skip_first_frames=0):
+    
     player = None
     try:
         # Create a video player to play with target fps.
@@ -141,6 +203,8 @@ def run_object_detection(source=0, flip=False, use_popup=False, skip_first_frame
             #    break
 
             ret, frame = cap.read()
+
+            
             if ret is False:
                 print("Can't receive frame (stream end?). Exiting ...")
                 break
