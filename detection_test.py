@@ -104,8 +104,10 @@ def process_results(frame, results, thresh=0.6):
 
 global a
 global b
+global c
 a=0
 b=0
+c=0
 
 def draw_boxes(frame, boxes):
     
@@ -132,40 +134,39 @@ def draw_boxes(frame, boxes):
             thickness=1,
             lineType=cv2.LINE_AA,
         )
-        
-        
-        if classes[label] =="cell phone": 
-            state ==True
-            while state ==True:
-                
-                center_x = (box[0]+x2)/2
-                center_y= (box[1]+y2)/2
-                
-                
-                if center_x>0 and center_x<640 and center_y >0 and center_y<200:                
-                    global a
-                    a=time.time()
+        global c
+        if time.time()-c>1.5:
+            if classes[label] =="cell phone": 
+                state ==True
+                while state ==True:
                     
-            
-                if center_x>0 and center_x<640 and center_y >280 and center_y<480:                
-                    global b
-                    b=time.time()
+                    center_x = (box[0]+x2)/2
+                    center_y= (box[1]+y2)/2                
                     
+                    if center_x>0 and center_x<640 and center_y >0 and center_y<200:                
+                        global a
+                        a=time.time()                    
                 
-                
+                    if center_x>0 and center_x<640 and center_y >280 and center_y<480:                
+                        global b
+                        b=time.time()               
+                    
+                    if a != 0 and b !=0 :                  
 
-                if a != 0 and b !=0 :                   
-                    
-                    if a-b<0:
-                        print("cell phone in")
-                        a=0
-                        b=0
-                    if a-b>0:
-                        print("cell phone out")
-                        a=0
-                        b=0
-                state =False
-        
+                        if a-b<0:
+                            print("cell phone in")
+                            a=0
+                            b=0
+                            c=time.time()                        
+
+                        if a-b>0:
+                            print("cell phone out")
+                            a=0
+                            b=0
+                            c=time.time()   
+                    state =False
+        else:
+            continue
     return frame
 
 ## main processing function
