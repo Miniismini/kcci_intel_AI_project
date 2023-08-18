@@ -3,13 +3,13 @@
 ### Team_3: Paybag
 
 ### Members
-
+ 
 | Name   | Role                           |
 | ------ | ------------------------------ |
-| 박지훈 | AI Model Training |
-| 유승범 | Firmware & H/W Control |
-| 이세현 | GUI & Server |
-| 이종윤 | Firmware & H/W Control |
+| 박지훈 | GUI & Server |
+| 유승범 | AI Model Training |
+| 이세현 | AI Model Training |
+| 이종윤 | GUI & Server |
 | 천동민 | Firmware & H/W Control |
 
 
