@@ -543,19 +543,27 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                             global p1_time_2
                             p1_time_2=time.time()              
                         
-                        if p1_time_1 != 0 and p1_time_2 !=0 :                  
+                        if p1_time_1 != 0 and p1_time_2 !=0 :
 
-                            if p1_time_1-p1_time_2<0:
-                                print("CooqueD'asse in")
+                            if abs(p1_time_1-p1_time_2)<5:                 
+
+                                if p1_time_1-p1_time_2<0:
+                                    print("CooqueD'asse in")
+                                    p1_time_1=0
+                                    p1_time_2=0
+                                    product_1=time.time()
+                                                            
+
+                                if p1_time_1-p1_time_2>0:
+                                    print("CooqueD'asse out")
+                                    p1_time_1=0
+                                    p1_time_2=0
+                                    product_1=time.time()
+                            elif abs(p1_time_1-p1_time_2)>5:
                                 p1_time_1=0
                                 p1_time_2=0
-                                product_1=time.time()                        
+                                product_1=time.time()
 
-                            if p1_time_1-p1_time_2>0:
-                                print("CooqueD'asse out")
-                                p1_time_1=0
-                                p1_time_2=0
-                                product_1=time.time()   
                         state =False
 
             #product_2-----------------------------------------------------------------------
@@ -575,19 +583,25 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                             global p2_time_2
                             p2_time_2=time.time()              
                         
-                        if p2_time_1 != 0 and p2_time_2 !=0 :                  
+                        if p2_time_1 != 0 and p2_time_2 !=0 :
+                            if abs(p2_time_1-p2_time_2)<5:                  
 
-                            if p2_time_1-p2_time_2<0:
-                                print("KirklandWater in")
+                                if p2_time_1-p2_time_2<0:
+                                    print("KirklandWater in")
+                                    p2_time_1=0
+                                    p2_time_2=0
+                                    product_2=time.time()                        
+
+                                if p2_time_1-p2_time_2>0:
+                                    print("KirklandWater out")
+                                    p2_time_1=0
+                                    p2_time_2=0
+                                    product_2=time.time()   
+                            elif abs(p2_time_1-p2_time_2)>5:
                                 p2_time_1=0
                                 p2_time_2=0
-                                product_2=time.time()                        
+                                product_2=time.time() 
 
-                            if p2_time_1-p2_time_2>0:
-                                print("KirklandWater out")
-                                p2_time_1=0
-                                p2_time_2=0
-                                product_2=time.time()   
                         state_1 =False
 
 
@@ -608,19 +622,24 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                             global p3_time_2
                             p3_time_2=time.time()              
                         
-                        if p3_time_1 != 0 and p3_time_2 !=0 :                  
+                        if p3_time_1 != 0 and p3_time_2 !=0 :
+                            if abs(p3_time_1-p3_time_2)<5:                  
 
-                            if p3_time_1-p3_time_2<0:
-                                print("MizBall in")
+                                if p3_time_1-p3_time_2<0:
+                                    print("MizBall in")
+                                    p3_time_1=0
+                                    p3_time_2=0
+                                    product_3=time.time()                        
+
+                                if p3_time_1-p3_time_2>0:
+                                    print("MizBall out")
+                                    p3_time_1=0
+                                    p3_time_2=0
+                                    product_3=time.time()   
+                            elif abs(p3_time_1-p3_time_2)>5:
                                 p3_time_1=0
                                 p3_time_2=0
-                                product_3=time.time()                        
-
-                            if p3_time_1-p3_time_2>0:
-                                print("MizBall out")
-                                p3_time_1=0
-                                p3_time_2=0
-                                product_3=time.time()   
+                                product_3=time.time() 
                         state_2 =False
 
             #product_4-----------------------------------------------------------------------
@@ -640,19 +659,24 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                             global p4_time_2
                             p4_time_2=time.time()              
                         
-                        if p4_time_1 != 0 and p4_time_2 !=0 :                  
+                        if p4_time_1 != 0 and p4_time_2 !=0 :
+                            if abs(p4_time_1-p4_time_2)<5:                  
 
-                            if p4_time_1-p4_time_2<0:
-                                print("Pepero in")
+                                if p4_time_1-p4_time_2<0:
+                                    print("Pepero in")
+                                    p4_time_1=0
+                                    p4_time_2=0
+                                    product_4=time.time()                        
+
+                                if p4_time_1-p4_time_2>0:
+                                    print("Pepero out")
+                                    p4_time_1=0
+                                    p4_time_2=0
+                                    product_4=time.time()  
+                            elif  abs(p4_time_1-p4_time_2)<5:
                                 p4_time_1=0
                                 p4_time_2=0
-                                product_4=time.time()                        
-
-                            if p4_time_1-p4_time_2>0:
-                                print("Pepero out")
-                                p4_time_1=0
-                                p4_time_2=0
-                                product_4=time.time()   
+                                product_4=time.time()
                         state_3 =False
 
             #product_5-----------------------------------------------------------------------
@@ -672,19 +696,25 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                             global p5_time_2
                             p5_time_2=time.time()              
                         
-                        if p5_time_1 != 0 and p5_time_2 !=0 :                  
+                        if p5_time_1 != 0 and p5_time_2 !=0 :
+                            if abs(p5_time_1-p5_time_2)<5:                  
 
-                            if p5_time_1-p5_time_2<0:
-                                print("ShrimpCracker in")
+                                if p5_time_1-p5_time_2<0:
+                                    print("ShrimpCracker in")
+                                    p5_time_1=0
+                                    p5_time_2=0
+                                    product_5=time.time()                        
+
+                                if p5_time_1-p5_time_2>0:
+                                    print("ShrimpCracker out")
+                                    p5_time_1=0
+                                    p5_time_2=0
+                                    product_5=time.time()  
+                            elif  abs(p4_time_1-p4_time_2)<5: 
                                 p5_time_1=0
                                 p5_time_2=0
-                                product_5=time.time()                        
-
-                            if p5_time_1-p5_time_2>0:
-                                print("ShrimpCracker out")
-                                p5_time_1=0
-                                p5_time_2=0
-                                product_5=time.time()   
+                                product_5=time.time()
+                            
                         state_4 =False
 
             
