@@ -519,19 +519,22 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
             image = self.draw_transparent_rectangle(image, x1, y1, x2, y2, base_color, self.alpha_shape)
             image = cv2.rectangle(img=image, pt1=(x1, y1), pt2=(x2, y2), color=base_color, thickness=5)
             print(labels[0].name)
+
             center_x = (x1 + x2)/2
             center_y = (y1 + y2)/2
             print(center_x)
             print(center_y)
+            
             #product_1-----------------------------------------------------------------------
             global product_1
-            if time.time()-product_1>1.5:            
+            if time.time()-product_1>1.5:  
+                       
                 if labels[0].name =="CooqueD'asse": 
                     state ==True
                     while state ==True:            
                         center_x = (x1 + x2)/2
                         center_y = (y1 + y2)/2                         
-            
+                        
                         if center_x>0 and center_x<640 and center_y >0 and center_y<200:                
                             global p1_time_1
                             p1_time_1=time.time()                    
@@ -560,7 +563,7 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
             if time.time()-product_2>1.5:            
                 if labels[0].name =="KirklandWater": 
                     state_1 ==True
-                    while state ==True:            
+                    while state_1 ==True:            
                         center_x = (x1 + x2)/2
                         center_y = (y1 + y2)/2                         
             
@@ -585,7 +588,7 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                                 p2_time_1=0
                                 p2_time_2=0
                                 product_2=time.time()   
-                        state =False
+                        state_1 =False
 
 
             #product_3-----------------------------------------------------------------------
@@ -618,7 +621,7 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                                 p3_time_1=0
                                 p3_time_2=0
                                 product_3=time.time()   
-                        state =False
+                        state_2 =False
 
             #product_4-----------------------------------------------------------------------
             global product_4
@@ -650,7 +653,7 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                                 p4_time_1=0
                                 p4_time_2=0
                                 product_4=time.time()   
-                        state =False
+                        state_3 =False
 
             #product_5-----------------------------------------------------------------------
             global product_5
@@ -682,7 +685,7 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                                 p5_time_1=0
                                 p5_time_2=0
                                 product_5=time.time()   
-                        state =False
+                        state_4 =False
 
             
 
