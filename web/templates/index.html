@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paybag</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 80px;"><center>Paybag</center></h1>
+    <center>
+    
+    <table class = "table table-hover table-striped text-center",style = " width: 50%; border : 1px solid #111114;">
+        <thead>
+            <tr>
+                <center>
+                    <th style="padding-left: 20px; padding-right: 0px;">상품</th>
+                    <th style="padding-left: 20px; padding-right: 20px;">수량</th>
+                    <th style="padding-left: 20px; padding-right: 20px;">가격</th>
+                    <th style="padding-left: 20px; padding-right: 20px;">총 가격</th>
+                </center>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><center>쿠크다스</center></td>
+                <td><center><span id="count_a">{{ count_a }}</span></center></td>
+                <td><center>500</center></td>
+                <td><center> <span id="count_a_price">{{count_a_price}}</span></center></td>
+            </tr>
+            <tr>
+                <td><center>물</center></td>
+                <td><center><span id="count_b">{{ count_b }}</span></center></td>
+                <td><center>300</center></td>
+                <td><center> <span id="count_b_price">{{count_b_price}}</span></center></td>
+            </tr>
+            <tr>
+                <td><center>미쯔볼</center></td>
+                <td><center><span id="count_c">{{ count_c }}</span></center></td>
+                <td><center>400</center></td>
+                <td><center> <span id="count_c_price">{{count_c_price}}</span></center></td>
+            </tr>
+            <tr>
+                <td><center>빼빼로</center></td>
+                <td><center><span id="count_d">{{ count_d }}</span></center></td>
+                <td><center>600</center></td>
+                <td><center> <span id="count_d_price">{{count_d_price}}</span></center></td>
+            </tr>
+            <tr>
+                <td><center>새우깡</center></td>
+                <td><center><span id="count_e">{{ count_e }}</span></center></td>
+                <td><center>700</center></td>
+                <td><center> <span id="count_e_price">{{count_e_price}}</span></center></td>
+            </tr>
+
+        </tbody>
+    </table>
+    <form id="paymentForm" action="/reset_counts" method="post">
+        <button type="submit">시작하기</button>
+    </form>
+    <p>total_count: <span id="count_value">{{ count_value }}</span></p>
+    <p>total_price: <span id="total_price">{{ total_price }}</span></p>
+    <script>
+        const socket = io.connect();
+
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 기본 폼 제출 동작 막기
+            socket.emit('reset_counts_request');
+        });
+        socket.on('update_count', function(data) {
+            document.getElementById('count').innerText = data.count;
+            document.getElementById('count_a').innerText = data.count_a;
+            document.getElementById('count_b').innerText = data.count_b;
+            document.getElementById('count_c').innerText = data.count_c;
+            document.getElementById('count_d').innerText = data.count_d;
+            document.getElementById('count_e').innerText = data.count_e;
+            document.getElementById('count_a_price').innerText = data.count_a * 500;
+            document.getElementById('count_b_price').innerText = data.count_b * 300;
+            document.getElementById('count_c_price').innerText = data.count_c * 400;
+            document.getElementById('count_d_price').innerText = data.count_d * 600;
+            document.getElementById('count_e_price').innerText = data.count_e * 700;
+            document.getElementById('total_price').innerText = data.count_a * 500 + data.count_b * 300 + data.count_c * 400 + data.count_d * 600 + data.count_e * 700;
+        });
+    </script>
+</center>
+</body>
+</html>
