@@ -23,7 +23,7 @@ from typing import (
 import cv2
 import numpy as np
 import time
-
+import socketio
 from otx.api.entities.annotation import (
     Annotation,
     AnnotationSceneEntity,
@@ -37,10 +37,11 @@ from otx.api.entities.shapes.polygon import Polygon
 from otx.api.entities.shapes.rectangle import Rectangle
 from otx.api.entities.shapes.shape import ShapeEntity
 
+
+
 CvTextSize = NewType("CvTextSize", Tuple[Tuple[int, int], int])
 
 _Any = TypeVar("_Any")
-
 
 class DrawerEntity(Generic[_Any]):
     """An interface to draw a shape of type ``T`` onto an image."""
@@ -316,6 +317,10 @@ class Helpers:
 
         self.cursor_pos = cursor_pos
 
+global product_name
+global product_state
+product_name = ''
+product_state = ''
 
 class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
     """ShapeDrawer to draw any shape on a numpy array. Will overlay the shapes in the same way that the UI does.
@@ -463,13 +468,68 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
 
             return image
 
+
     class RectangleDrawer(Helpers, DrawerEntity[Rectangle]):
+        
         """Draws rectangles."""
 
+        def product():
+            global product_name
+            global product_state
+            if product_name == 'a':
+                if product_state == 'in':
+                    product_name = ''
+                    product_state = ''
+                    return 'a', 'in'
+                elif product_state == 'out':
+                    product_name = ''
+                    product_state = ''
+                    return 'a', 'out'
+            if product_name == 'b':
+                if product_state == 'in':
+                    product_name = ''
+                    product_state = ''
+                    return 'b', 'in'
+                elif product_state == 'out':
+                    product_name = ''
+                    product_state = ''
+                    return 'b', 'out'
+            if product_name == 'c':
+                if product_state == 'in':
+                    product_name = ''
+                    product_state = ''
+                    return 'c', 'in'
+                elif product_state == 'out':
+                    product_name = ''
+                    product_state = ''
+                    return 'c', 'out'
+            if product_name == 'd':
+                if product_state == 'in':
+                    product_name = ''
+                    product_state = ''
+                    return 'd', 'in'
+                elif product_state == 'out':
+                    product_name = ''
+                    product_state = ''
+                    return 'd', 'out'
+            if product_name == 'e':
+                if product_state == 'in':
+                    product_name = ''
+                    product_state = ''
+                    return 'e', 'in'
+                elif product_state == 'out':
+                    product_name = ''
+                    product_state = ''
+                    return 'e', 'out'
+            else :
+                return 'g','f'
+            
         supported_types = [Rectangle]
+
         global p1_time_1,p2_time_1,p3_time_1,p4_time_1,p5_time_1
         global p1_time_2,p2_time_2,p3_time_2,p4_time_2,p5_time_2
         global product_1,product_2,product_3,product_4,product_5
+        
         p1_time_1=0
         p1_time_2=0
         product_1=0
@@ -489,21 +549,18 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
         p5_time_1=0
         p5_time_2=0
         product_5=0
+
+
         def __init__(self, show_labels, show_confidence):
             super().__init__()
             self.show_labels = show_labels
             self.show_confidence = show_confidence
-        global res_1
-        res=0
-        def show_res(self,res_1):                  
-            a=res_1
-                
-            return a
+
 
 
         def draw(self, image: np.ndarray, entity: Rectangle, labels: List[ScoredLabel]) -> np.ndarray:
             """Draws a rectangle on the image along with labels.
-
+            
             Args:
                 image (np.ndarray): Image to draw on.
                 entity (Rectangle): Rectangle to draw.
@@ -512,6 +569,8 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
             Returns:
                 np.ndarray: Image with rectangle drawn on it.
             """
+
+
             base_color = labels[0].color.bgr_tuple
 
             state =True
@@ -556,17 +615,19 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
 
                                 if p1_time_1-p1_time_2<0:
                                     print("CooqueD'asse in")
-                                    global res_1
-                                    res_1="CooqueD'asse11"
-                                    self.show_res(res_1)
+                                    global product_name
+                                    global product_state
+                                    product_name = 'a'
+                                    product_state = 'in'
                                     p1_time_1=0
                                     p1_time_2=0
                                     product_1=time.time()
-                                    
                                                             
 
                                 if p1_time_1-p1_time_2>0:
                                     print("CooqueD'asse out")
+                                    product_name = 'a'
+                                    product_state = 'out'
                                     p1_time_1=0
                                     p1_time_2=0
                                     product_1=time.time()
@@ -599,15 +660,20 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
 
                                 if p2_time_1-p2_time_2<0:
                                     print("KirklandWater in")
+                                    product_name = 'b'
+                                    product_state = 'in'
                                     p2_time_1=0
                                     p2_time_2=0
                                     product_2=time.time()                        
-
+      
                                 if p2_time_1-p2_time_2>0:
                                     print("KirklandWater out")
+                                    product_name = 'b'
+                                    product_state = 'out'
                                     p2_time_1=0
                                     p2_time_2=0
                                     product_2=time.time()   
+ 
                             elif abs(p2_time_1-p2_time_2)>5:
                                 p2_time_1=0
                                 p2_time_2=0
@@ -638,12 +704,16 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
 
                                 if p3_time_1-p3_time_2<0:
                                     print("MizBall in")
+                                    product_name = 'c'
+                                    product_state = 'in'
                                     p3_time_1=0
                                     p3_time_2=0
                                     product_3=time.time()                        
 
                                 if p3_time_1-p3_time_2>0:
                                     print("MizBall out")
+                                    product_name = 'c'
+                                    product_state = 'out'
                                     p3_time_1=0
                                     p3_time_2=0
                                     product_3=time.time()   
@@ -651,6 +721,7 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
                                 p3_time_1=0
                                 p3_time_2=0
                                 product_3=time.time() 
+                                
                         state_2 =False
 
             #product_4-----------------------------------------------------------------------
@@ -675,19 +746,25 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
 
                                 if p4_time_1-p4_time_2<0:
                                     print("Pepero in")
+                                    product_name = 'd'
+                                    product_state = 'in'
                                     p4_time_1=0
                                     p4_time_2=0
                                     product_4=time.time()                        
 
                                 if p4_time_1-p4_time_2>0:
                                     print("Pepero out")
+                                    product_name = 'd'
+                                    product_state = 'out'
                                     p4_time_1=0
                                     p4_time_2=0
                                     product_4=time.time()  
+                                    
                             elif  abs(p4_time_1-p4_time_2)<5:
                                 p4_time_1=0
                                 p4_time_2=0
                                 product_4=time.time()
+                                
                         state_3 =False
 
             #product_5-----------------------------------------------------------------------
@@ -712,24 +789,26 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
 
                                 if p5_time_1-p5_time_2<0:
                                     print("ShrimpCracker in")
+                                    product_name = 'e'
+                                    product_state = 'in'
                                     p5_time_1=0
                                     p5_time_2=0
                                     product_5=time.time()                        
 
                                 if p5_time_1-p5_time_2>0:
                                     print("ShrimpCracker out")
+                                    product_name = 'e'
+                                    product_state = 'out'
                                     p5_time_1=0
                                     p5_time_2=0
                                     product_5=time.time()  
+                                    
                             elif  abs(p4_time_1-p4_time_2)<5: 
                                 p5_time_1=0
                                 p5_time_2=0
                                 product_5=time.time()
                             
                         state_4 =False
-            
-            
-            
 
             (
                 draw_command,
@@ -752,6 +831,9 @@ class ShapeDrawer(DrawerEntity[AnnotationSceneEntity]):
             self.set_cursor_pos(Coordinate(x_coord, y_coord))
             image = draw_command(image)
             return image
+
+
+
 
     class EllipseDrawer(Helpers, DrawerEntity[Ellipse]):
         """Draws ellipses."""
