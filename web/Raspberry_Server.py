@@ -93,4 +93,4 @@ def handle_reset_counts_request():
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='10.10.14.14', port=8000)
+    socketio.run(app, host='0.0.0.0', port=8000)
