@@ -7,7 +7,7 @@ cd ./workspace
 otx find --task detection
 
 otx build --train-data-root ./(cocodataset directory) --model (model name) --workspace new_directory(directory name)
-
+ass
 cd new_directory
 
 ds_count splitted_dataset/ 2
