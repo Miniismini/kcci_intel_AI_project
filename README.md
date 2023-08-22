@@ -7,10 +7,9 @@
 | Name   | Role                           |
 | ------ | ------------------------------ |
 | 박지훈 | GUI & Server |
-| 유승범 | AI Model Training |
-| 이세현 | AI Model Training |
+| 이세현 | AI Model Training & setup |
 | 이종윤 | GUI & Server |
-| 천동민 | Firmware & H/W Control |
+| 천동민 | Image Processing & AI Training |
 
 
 
