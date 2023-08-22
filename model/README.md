@@ -1,27 +1,41 @@
-# kcci_intel_AI_project
-
-### Team_3: Paybag
-
-### Members
- 
-| Name   | Role                           |
-| ------ | ------------------------------ |
-| 박지훈 | GUI & Server |
-| 유승범 | AI Model Training |
-| 이세현 | AI Model Training |
-| 이종윤 | GUI & Server |
-| 천동민 | Firmware & H/W Control |
-
-
+# otx train setting
 
 ## 1. 문제점 정의
 ```
-지금 시행되고 있는 셀프 계산대는 장바구니에 물품을 넣은 뒤에
-계산하는 곳에서 물품 하나하나 바코드를 찍어 계산해야 한다
-장바구니에 카메라를 이용해 장바구니 안에서 자동으로 가격이 합산된다면
-따로 바코드를 찍어야 하는 번거로움이 사라질 것이라고 생각한다.
-또한 고령층이 셀프 계산대를 이용하기 어려운데 제안하는 방식을 이용한다면
-그 어려움이 다소 해결될 것이라고 생각한다.
+cd ./workspace
+
+otx find --task detection
+
+otx build --train-data-root ./(cocodataset directory) --model (model name) --workspace new_directory(directory name)
+
+cd new_directory
+
+ds_count splitted_dataset/ 2
+
+(parameter 수정)
+otx train params --learning_parameters.batch_size 64 --learning_parameters.num_iters 1
+gedit template.yaml
+gedit configuration.yaml
+
+otx train
+
+otx eval --test-data-roots ./splitted_dataset/val
+
+otx export
+
+find -name "modelname"
+
+otx deploy ./workspace/.otx/lib/python3.10/site-packages/otx/algorithms/detection/configs/detection/mobilenetv2_ssd/template.yalm(find -name "modelname"결과) --load-weights outputs/20230818_13856_export/openvino/openvino.xml(생성된 xml)
+
+cd outputs/20230818_13856_deploy(생성된 deploy directory)
+
+unzip openvino.zip
+
+cd python/
+
+pip install -r requirements.txt
+
+python demo.py --input (video or image) --models ../model
 ```
 ## 2. 유즈케이스 시나리오
 
