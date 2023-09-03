@@ -1,5 +1,9 @@
 # kcci_intel_AI_project
 
+
+![in (1)](https://github.com/Miniismini/kcci_intel_AI_project/assets/131587074/1d00250d-11d3-4d49-b427-c2bc67e7ca4b)
+
+
 ### Team_3: Paybag
 
 ### Members
