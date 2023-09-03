@@ -5,7 +5,7 @@
 
 
 
-![image](https://github.com/Miniismini/kcci_intel_AI_project/assets/131587074/a3c50171-7daa-47b1-8aa6-20b1a64c3416)
+
 
 
 
